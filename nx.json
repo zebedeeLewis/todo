@@ -1,14 +1,9 @@
 {
   "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     ".eslintrc.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "npmScope": "todo",
   "tasksRunnerOptions": {
     "default": {
@@ -19,15 +14,12 @@
     }
   },
   "projects": {
-    "api-interfaces": {
-      "tags": []
-    },
-    "presentation-web--frontend": {
-      "tags": ["presentation"]
-    },
+    "api-interfaces": { "tags": [] },
+    "presentation-web--frontend": { "tags": ["presentation"] },
     "presentation/web/-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["presentation-web--frontend"]
-    }
+    },
+    "presentation-web--api": { "tags": ["presentation", "frontend"] }
   }
 }
