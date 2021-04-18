@@ -19,18 +19,15 @@
     }
   },
   "projects": {
-    "todo": {
-      "tags": []
-    },
-    "todo-e2e": {
-      "tags": [],
-      "implicitDependencies": ["todo"]
-    },
-    "api": {
-      "tags": []
-    },
     "api-interfaces": {
       "tags": []
+    },
+    "presentation-web--frontend": {
+      "tags": ["presentation"]
+    },
+    "presentation/web/-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["presentation-web--frontend"]
     }
   }
 }
