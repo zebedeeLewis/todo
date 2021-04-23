@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@todo/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@todo/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@presentation-web--api/*": ["apps/presentation/web/api/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
