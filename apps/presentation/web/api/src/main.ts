@@ -1,18 +1,30 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import * as express from 'express'
+import { TodoRouter } from '@presentation-web--api/app/route/todo'
 
-const app = express()
+import type { Server } from 'http'
 
-app.get('/api', (_, res) => {
-  res.send({ message: 'Welcome to api!' })
-})
+const API_PATH_ROOT = '/api/v1'
+const TODO_API_PATH_ROOT = API_PATH_ROOT + '/todo'
+const DEFAULT_PORT = 3333
 
-const port = process.env.port || 3333
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`)
-})
-server.on('error', console.error)
+/**
+ * Start the server
+ *
+ * @returns the listening express server.
+ */
+function start(): Server {
+  const app = express()
+
+  app.use(TODO_API_PATH_ROOT, TodoRouter.instanciate())
+
+  const port = process.env.port || DEFAULT_PORT
+  const server = app.listen(port, () => {
+    console.log(`Listening at http://localhost:${port}/api`)
+  })
+
+  server.on('error', console.error)
+
+  return server
+}
+
+start()
