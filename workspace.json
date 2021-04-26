@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
+  "cli": { "defaultCollection": "@nrwl/react" },
   "defaultProject": "presentation-web--frontend",
   "generators": {
     "@nrwl/react": {
@@ -11,13 +9,8 @@
         "linter": "eslint",
         "babel": true
       },
-      "component": {
-        "style": "scss"
-      },
-      "library": {
-        "style": "scss",
-        "linter": "eslint"
-      }
+      "component": { "style": "scss" },
+      "library": { "style": "scss", "linter": "eslint" }
     }
   },
   "projects": {
@@ -29,9 +22,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/api-interfaces/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
           }
         }
       }
@@ -43,9 +34,7 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/presentation/web/frontend",
             "index": "apps/presentation/web/frontend/src/index.html",
@@ -108,9 +97,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/presentation/web/frontend"
-          ],
+          "outputs": ["coverage/apps/presentation/web/frontend"],
           "options": {
             "jestConfig": "apps/presentation/web/frontend/jest.config.js",
             "passWithNoTests": true
@@ -153,16 +140,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/presentation/web/api",
             "main": "apps/presentation/web/api/src/main.ts",
             "tsConfig": "apps/presentation/web/api/tsconfig.app.json",
-            "assets": [
-              "apps/presentation/web/api/src/assets"
-            ]
+            "assets": ["apps/presentation/web/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -180,25 +163,40 @@
         },
         "serve": {
           "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "presentation-web--api:build"
-          }
+          "options": { "buildTarget": "presentation-web--api:build" }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/presentation/web/api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/presentation/web/api/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/presentation/web/api"
-          ],
+          "outputs": ["coverage/apps/presentation/web/api"],
           "options": {
             "jestConfig": "apps/presentation/web/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "domain-value-object": {
+      "root": "libs/domain/value-object",
+      "sourceRoot": "libs/domain/value-object/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/domain/value-object/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/domain/value-object"],
+          "options": {
+            "jestConfig": "libs/domain/value-object/jest.config.js",
             "passWithNoTests": true
           }
         }

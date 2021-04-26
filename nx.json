@@ -20,6 +20,7 @@
       "tags": [],
       "implicitDependencies": ["presentation-web--frontend"]
     },
-    "presentation-web--api": { "tags": ["presentation", "frontend"] }
+    "presentation-web--api": { "tags": ["presentation", "frontend"] },
+    "domain-value-object": { "tags": [] }
   }
 }

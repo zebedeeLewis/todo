@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@todo/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@presentation-web--api/*": ["apps/presentation/web/api/src/*"]
+      "@presentation-web--api/*": ["apps/presentation/web/api/src/*"],
+      "@lib/domain/value-object": [
+        "libs/domain/value-object/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
