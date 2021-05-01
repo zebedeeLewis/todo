@@ -6,7 +6,7 @@ import type { NextFunction } from 'express'
 import * as TodoController from './todo-controller'
 import * as Repository from '@libs/infrastructure/repository'
 
-describe('get', () => {
+describe('get_single', () => {
   const mockedSend = jest.fn(function () {
     return this
   }) as jest.MockedFunction<typeof express.response.send>
@@ -24,6 +24,20 @@ describe('get', () => {
     send: mockedSend,
   } as unknown) as express.Response
 
+  const repoDTO = {}
+
+  const VALID_ID_1 = 'dc965fe8-0868-44da-a0df-581010053655'
+  const VALID_ID_2 = 'fd26f7f0-8436-4fdd-a25f-4c6a7ac9a009'
+
+  const INVALID_ID_RANDOM = 'randome-id'
+  const INVALID_ID_V1 = 'e4141c50-aa9e-11eb-9375-9ddbe18c35c9'
+  const INVALID_ID_V3 = '641eb357-8761-3f64-b791-b2d4398e8532'
+  const INVALID_ID_V5 = 'f81789d2-8ecc-5d84-b2e8-986e69b7f5d4'
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it(
     'responds with status code "OK" (i.e. calls res.status with ' +
       '200) if a todo item whos "id" matches the id portion of ' +
@@ -31,7 +45,6 @@ describe('get', () => {
     async () => {
       async function do_test(id: string) {
         const req = { params: { id } as any } as express.Request
-        const repoDTO = {}
 
         await TodoController.get_single(
           repoDTO,
@@ -43,8 +56,8 @@ describe('get', () => {
         expect(res.status).toHaveBeenLastCalledWith(HTTP.StatusCodes.OK)
       }
 
-      await do_test('random-id')
-      await do_test('random-id-2')
+      await do_test(VALID_ID_1)
+      await do_test(VALID_ID_2)
     }
   )
 
@@ -55,7 +68,6 @@ describe('get', () => {
       async function do_test(id: string) {
         const req = { params: { id } as any } as express.Request
         const todoDTO = { id }
-        const repoDTO = {}
 
         await TodoController.get_single(
           repoDTO,
@@ -67,8 +79,61 @@ describe('get', () => {
         expect(res.send).toHaveBeenLastCalledWith(todoDTO)
       }
 
-      await do_test('random-id')
-      await do_test('random-id-2')
+      await do_test(VALID_ID_1)
+      await do_test(VALID_ID_2)
+    }
+  )
+
+  it(
+    'responds with status code "BAD_REQUEST" (i.e. calls res.status ' +
+      'with 400) if the id portion of the route is not a valid id.',
+    async () => {
+      async function do_test(id: string) {
+        const req = { params: { id } as any } as express.Request
+
+        await TodoController.get_single(
+          repoDTO,
+          req,
+          res,
+          mockedNextFunction
+        )
+
+        expect(res.status).toHaveBeenLastCalledWith(
+          HTTP.StatusCodes.BAD_REQUEST
+        )
+      }
+
+      await do_test(INVALID_ID_RANDOM)
+      await do_test(INVALID_ID_V1)
+      await do_test(INVALID_ID_V3)
+      await do_test(INVALID_ID_V5)
+    }
+  )
+
+  it(
+    'responds with the reason phrase (i.e. calls res.send) for ' +
+      'status code "BAD_REQUEST" if the id portion of the route is ' +
+      'not a valid id.',
+    async () => {
+      async function do_test(id: string) {
+        const req = { params: { id } as any } as express.Request
+
+        await TodoController.get_single(
+          repoDTO,
+          req,
+          res,
+          mockedNextFunction
+        )
+
+        expect(res.send).toHaveBeenLastCalledWith(
+          HTTP.ReasonPhrases.BAD_REQUEST
+        )
+      }
+
+      await do_test(INVALID_ID_RANDOM)
+      await do_test(INVALID_ID_V1)
+      await do_test(INVALID_ID_V3)
+      await do_test(INVALID_ID_V5)
     }
   )
 })

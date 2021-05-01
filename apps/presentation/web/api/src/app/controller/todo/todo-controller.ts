@@ -3,6 +3,9 @@ import * as HTTP from 'http-status-codes'
 import * as Result from 'neverthrow'
 
 import * as Repository from '@libs/infrastructure/repository'
+import * as ValueObject from '@libs/domain/value-object'
+
+const REQ_PARAM_ID = 'id'
 
 /**
  * Handles GET requests to the API endpoint for a single todo items.
@@ -18,6 +21,9 @@ import * as Repository from '@libs/infrastructure/repository'
  *   a. responds with status code "OK" (i.e. calls res.status with
  *      200) and the DTO for the todo item whos "id" matches the id
  *      portion of the route.
+ *   b. responds with status code "BAD_REQUEST" (i.e. calls res.status
+ *      with 400) and the corresponding reason phrase if the id portion
+ *      of the route is not a valid id.
  *
  * TODO!!!
  */
@@ -27,7 +33,15 @@ export async function get_single(
   res: express.Response,
   next: express.NextFunction
 ): Promise<void> {
-  const { id } = req.params
+  const { [REQ_PARAM_ID]: id } = req.params
+
+  const idValidationResult = ValueObject.Id.validate_DTO(id)
+  if (idValidationResult.isErr()) {
+    res
+      .status(HTTP.StatusCodes.BAD_REQUEST)
+      .send(HTTP.ReasonPhrases.BAD_REQUEST)
+    return
+  }
 
   const repoCreateResult = Repository.Todo.create(todoRepoDTO)
   if (repoCreateResult.isErr()) {
