@@ -14,13 +14,14 @@
     }
   },
   "projects": {
-    "api-interfaces": { "tags": [] },
     "presentation-web--frontend": { "tags": ["presentation"] },
     "presentation/web/-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["presentation-web--frontend"]
     },
     "presentation-web--api": { "tags": ["presentation", "frontend"] },
-    "domain-value-object": { "tags": [] }
+    "domain-value-object": { "tags": [] },
+    "infrastructure-repository": { "tags": [] },
+    "domain-entity": { "tags": [] }
   }
 }

@@ -1,7 +1,1 @@
-import { get } from './todo-controller'
-
-const TodoController = {
-  get,
-}
-
-export { TodoController }
+export { get_single } from './todo-controller'

@@ -14,19 +14,6 @@
     }
   },
   "projects": {
-    "api-interfaces": {
-      "root": "libs/api-interfaces",
-      "sourceRoot": "libs/api-interfaces/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
-          }
-        }
-      }
-    },
     "presentation-web--frontend": {
       "root": "apps/presentation/web//frontend",
       "sourceRoot": "apps/presentation/web//frontend/src",
@@ -197,6 +184,50 @@
           "outputs": ["coverage/libs/domain/value-object"],
           "options": {
             "jestConfig": "libs/domain/value-object/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "infrastructure-repository": {
+      "root": "libs/infrastructure/repository",
+      "sourceRoot": "libs/infrastructure/repository/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/infrastructure/repository/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/infrastructure/repository"],
+          "options": {
+            "jestConfig": "libs/infrastructure/repository/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "domain-entity": {
+      "root": "libs/domain/entity",
+      "sourceRoot": "libs/domain/entity/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/domain/entity/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/domain/entity"],
+          "options": {
+            "jestConfig": "libs/domain/entity/jest.config.js",
             "passWithNoTests": true
           }
         }

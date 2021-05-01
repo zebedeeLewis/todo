@@ -1,1 +1,3 @@
-export type { Model } from './id'
+export { create } from './id'
+
+export type { Model, DTO } from './id'

@@ -15,11 +15,18 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@todo/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@presentation-web--api/*": ["apps/presentation/web/api/src/*"],
-      "@lib/domain/value-object": [
+      "@libs/domain/value-object": [
         "libs/domain/value-object/src/index.ts"
-      ]
+      ],
+      "@libs/infrastructure/repository/todo": [
+        "libs/infrastructure/repository/todo/src/index.ts"
+      ],
+      "@libs/infrastructure/repository": [
+        "libs/infrastructure/repository/src/index.ts"
+      ],
+      "@libs/domain/entity": ["libs/domain/entity/src/index.ts"],
+      "@libs/domain/DTO": ["libs/domain/dto/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

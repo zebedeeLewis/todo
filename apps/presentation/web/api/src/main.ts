@@ -1,5 +1,6 @@
 import * as express from 'express'
-import { TodoRouter } from '@presentation-web--api/app/route/todo'
+import * as TodoRouter from '@presentation-web--api/app/route/todo'
+import * as Repository from '@libs/infrastructure/repository'
 
 import type { Server } from 'http'
 
@@ -15,7 +16,8 @@ const DEFAULT_PORT = 3333
 function start(): Server {
   const app = express()
 
-  app.use(TODO_API_PATH_ROOT, TodoRouter.instanciate())
+  const todoRepo = Repository.Todo.create({})
+  app.use(TODO_API_PATH_ROOT, TodoRouter.instanciate(todoRepo))
 
   const port = process.env.port || DEFAULT_PORT
   const server = app.listen(port, () => {
