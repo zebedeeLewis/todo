@@ -21,6 +21,21 @@ export class Model {
 export interface DTO {}
 
 /**
+ * Validate the given dto.
+ *
+ * @param dto - the dto to validate.
+ * @returns
+ *
+ * @remarks
+ * TODO!!!
+ */
+export function validate_DTO(
+  dto: Partial<DTO>
+): Result.Result<Partial<DTO>, string> {
+  return Result.ok(dto)
+}
+
+/**
  * Create a new todo repository Model.
  *
  * @param todoDTO - the input
@@ -31,10 +46,8 @@ export interface DTO {}
  * @remarks
  * TODO!!!
  */
-export function create(
-  todoDTO: Partial<DTO>
-): Result.Result<Model, string> {
-  return Result.ok(new Model())
+export function create(todoDTO: Partial<DTO>): Model {
+  return new Model()
 }
 
 /**

@@ -13,7 +13,7 @@ const REQ_PARAM_ID = 'id'
  * a response object with the item if it is found and the appropriate
  * HTTP status code.
  *
- * @param todoRepo - the database repository for todo items.
+ * @param todoRepoDTO - the database repository for todo items.
  * @param req - the express Request object.
  * @param res - the express Response object.
  *
@@ -24,6 +24,10 @@ const REQ_PARAM_ID = 'id'
  *   b. responds with status code "BAD_REQUEST" (i.e. calls res.status
  *      with 400) and the corresponding reason phrase if the id portion
  *      of the route is not a valid id.
+ *
+ * Assumptions:
+ *   a. We assume that the given todoRepoDto has been validated.
+ *
  *
  * TODO!!!
  */
@@ -43,18 +47,12 @@ export async function get_single(
     return
   }
 
-  const repoCreateResult = Repository.Todo.create(todoRepoDTO)
-  if (repoCreateResult.isErr()) {
-    return next()
-  }
+  const todoRepo = Repository.Todo.create(todoRepoDTO)
+  const queryResult = await Repository.Todo.find(id, todoRepo)
 
-  repoCreateResult.map(async (todoRepo) => {
-    const queryResult = await Repository.Todo.find(id, todoRepo)
-
-    queryResult.map((todoDto) =>
-      res.status(HTTP.StatusCodes.OK).send(todoDto)
-    )
-  })
+  queryResult.map((todoDto) =>
+    res.status(HTTP.StatusCodes.OK).send(todoDto)
+  )
 
   return
 }

@@ -38,27 +38,34 @@ export function to_DTO(todoEntity: Model): DTO {
 }
 
 /**
+ * Validate a given todo entity DTO.
+ *
+ * @param dto - the DTO to validate
+ * @returns
+ *
+ * @remarkS
+ * TODO!!!
+ */
+export function validate_DTO(
+  dto: Partial<DTO>
+): Result.Result<Partial<DTO>, string> {
+  return Result.ok(dto)
+}
+
+/**
  * Creates a new TodoEntity
  *
  * @param todoDTO - input to create a new todo model
  *
  * @returns a new todo entity model.
  *
+ *
  * @remarks
+ *   1. We assume that the given DTO has been validated using the
+ *      "validate_DTO" function above.
+ *
  * TODO!!!
  */
-export function create(
-  todoDTO: Partial<DTO>
-): Result.Result<Model, string> {
-  const setId = (modelArgs: Record<string, any>) => {
-    return ValueObject.Id.create(todoDTO.id).map((id) => ({
-      ...modelArgs,
-      id,
-    }))
-  }
-
-  return Result.ok({})
-    .andThen(setId)
-    .map((modelArgs) => new Model(modelArgs.id))
-    .mapErr((err: string): string => err)
+export function create(todoDTO: Partial<DTO>): Model {
+  return new Model(ValueObject.Id.create(todoDTO.id))
 }

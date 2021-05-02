@@ -53,8 +53,16 @@ export function validate_DTO(dto: string): Result.Result<DTO, string> {
 /**
  * Creates a new IdValueObject
  *
+ * @param dto - the dto encapsulating the initialization data for the
+ * new id value object.
+ *
+ * @returns
+ *
+ * @remarks
+ *   1. We assume that the given dto has been validated using the
+ *      "validate_DTO" function above.
  * TODO!!!
  */
-export function create(idDTO: DTO): Result.Result<Model, string> {
-  return Result.ok(new Model(idDTO))
+export function create(dto: DTO): Model {
+  return new Model(dto)
 }
