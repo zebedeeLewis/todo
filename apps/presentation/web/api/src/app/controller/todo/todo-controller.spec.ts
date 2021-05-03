@@ -210,4 +210,32 @@ describe('get_single', () => {
       await do_test(VALID_ID_2)
     }
   )
+
+  it(
+    'responds with status code "NOT_FOUND" (i.e. calls res.status ' +
+      'with 404) if a todo item with the matching id cannot be found.',
+    async () => {
+      ;(Repository.Todo.find as jest.MockedFunction<
+        typeof Repository.Todo.find
+      >).mockReturnValue(Promise.resolve(Result.ok(null)))
+
+      async function do_test(id: string) {
+        const req = { params: { id } as any } as express.Request
+
+        await TodoController.get_single(
+          repoDTO,
+          req,
+          res,
+          mockedNextFunction
+        )
+
+        expect(res.status).toHaveBeenLastCalledWith(
+          HTTP.StatusCodes.NOT_FOUND
+        )
+      }
+
+      await do_test(VALID_ID_1)
+      await do_test(VALID_ID_2)
+    }
+  )
 })

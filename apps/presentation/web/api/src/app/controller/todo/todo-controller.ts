@@ -1,9 +1,11 @@
 import * as express from 'express'
 import * as HTTP from 'http-status-codes'
 import * as Result from 'neverthrow'
+import * as _ from 'underscore'
 
 import * as Repository from '@libs/infrastructure/repository'
 import * as ValueObject from '@libs/domain/value-object'
+import * as Entity from '@libs/domain/entity'
 
 const REQ_PARAM_ID = 'id'
 
@@ -27,6 +29,9 @@ const REQ_PARAM_ID = 'id'
  *   c. responds with status code "INTERNAL_SERVER_ERROR" (i.e. calls
  *      res.status with 400) and the corresponding reason phrase if
  *      there is an error in the retrieval process.
+ *   d. responds with status code "NOT_FOUND" (i.e. calls res.status
+ *      with 404) and the corresponding reason phrase if a todo items
+ *      with the matching id cannot be found.
  *
  * Assumptions:
  *   a. We assume that the given todoRepoDto has been validated.
@@ -59,9 +64,14 @@ export async function get_single(
     return
   }
 
-  queryResult.map((todoDto) =>
-    res.status(HTTP.StatusCodes.OK).send(todoDto)
-  )
+  queryResult.map((nullOrtodoDto) => {
+    if (_.isNull(nullOrtodoDto)) {
+      return res.status(HTTP.StatusCodes.NOT_FOUND)
+    }
+
+    const todoDTO = nullOrtodoDto as Entity.Todo.DTO
+    return res.status(HTTP.StatusCodes.OK).send(todoDTO)
+  })
 
   return
 }
