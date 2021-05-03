@@ -158,11 +158,11 @@ describe('get_single', () => {
       'res.status with 500) if there is an error in the retrieval ' +
       'process.',
     async () => {
-      async function do_test(id: string) {
-        ;(Repository.Todo.find as jest.MockedFunction<
-          typeof Repository.Todo.find
-        >).mockReturnValue(Promise.resolve(Result.err('random error')))
+      ;(Repository.Todo.find as jest.MockedFunction<
+        typeof Repository.Todo.find
+      >).mockReturnValue(Promise.resolve(Result.err('random error')))
 
+      async function do_test(id: string) {
         const req = { params: { id } as any } as express.Request
 
         await TodoController.get_single(
@@ -187,11 +187,11 @@ describe('get_single', () => {
       'code "INTERNAL_SERVER_ERROR" if there is an error in the ' +
       'retrieval process.',
     async () => {
-      async function do_test(id: string) {
-        ;(Repository.Todo.find as jest.MockedFunction<
-          typeof Repository.Todo.find
-        >).mockReturnValue(Promise.resolve(Result.err('random error')))
+      ;(Repository.Todo.find as jest.MockedFunction<
+        typeof Repository.Todo.find
+      >).mockReturnValue(Promise.resolve(Result.err('random error')))
 
+      async function do_test(id: string) {
         const req = { params: { id } as any } as express.Request
 
         await TodoController.get_single(
