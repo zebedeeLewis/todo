@@ -12,16 +12,26 @@ const DEFAULT_PORT = 3333
  * Start the server
  *
  * @returns the listening express server.
+ *
+ * TODO!!!
  */
 function start(): Server {
   const app = express()
 
-  const todoRepo = Repository.Todo.create({})
-  app.use(TODO_API_PATH_ROOT, TodoRouter.instanciate(todoRepo))
+  const todoRepoDTO = {}
+  const todoRepoValidationResult = Repository.Todo.validate_DTO(
+    todoRepoDTO
+  )
+
+  if (todoRepoValidationResult.isErr()) {
+    throw new Error('Failed to create todo repository')
+  }
+
+  app.use(TODO_API_PATH_ROOT, TodoRouter.instanciate(todoRepoDTO))
 
   const port = process.env.port || DEFAULT_PORT
   const server = app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}/api`)
+    console.log(`Listening at http://localhost:${port}${API_PATH_ROOT}`)
   })
 
   server.on('error', console.error)
