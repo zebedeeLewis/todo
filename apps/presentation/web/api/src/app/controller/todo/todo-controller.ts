@@ -61,7 +61,7 @@ export async function get_single(
     return
   }
 
-  queryResult.map((nullOrtodoDto) => {
+  queryResult.map((nullOrtodoDto: null | Entity.Todo.DTO) => {
     if (_.isNull(nullOrtodoDto)) {
       return res
         .status(HTTP.StatusCodes.NOT_FOUND)
