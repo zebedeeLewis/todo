@@ -66,7 +66,9 @@ export async function get_single(
 
   queryResult.map((nullOrtodoDto) => {
     if (_.isNull(nullOrtodoDto)) {
-      return res.status(HTTP.StatusCodes.NOT_FOUND)
+      return res
+        .status(HTTP.StatusCodes.NOT_FOUND)
+        .send(HTTP.ReasonPhrases.NOT_FOUND)
     }
 
     const todoDTO = nullOrtodoDto as Entity.Todo.DTO
