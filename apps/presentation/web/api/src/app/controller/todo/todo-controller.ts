@@ -24,6 +24,9 @@ const REQ_PARAM_ID = 'id'
  *   b. responds with status code "BAD_REQUEST" (i.e. calls res.status
  *      with 400) and the corresponding reason phrase if the id portion
  *      of the route is not a valid id.
+ *   c. responds with status code "INTERNAL_SERVER_ERROR" (i.e. calls
+ *      res.status with 400) and the corresponding reason phrase if
+ *      there is an error in the retrieval process.
  *
  * Assumptions:
  *   a. We assume that the given todoRepoDto has been validated.
@@ -49,6 +52,12 @@ export async function get_single(
 
   const todoRepo = Repository.Todo.create(todoRepoDTO)
   const queryResult = await Repository.Todo.find(id, todoRepo)
+  if (queryResult.isErr()) {
+    res
+      .status(HTTP.StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(HTTP.ReasonPhrases.INTERNAL_SERVER_ERROR)
+    return
+  }
 
   queryResult.map((todoDto) =>
     res.status(HTTP.StatusCodes.OK).send(todoDto)
