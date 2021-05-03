@@ -35,9 +35,6 @@ const REQ_PARAM_ID = 'id'
  *
  * Assumptions:
  *   a. We assume that the given todoRepoDto has been validated.
- *
- *
- * TODO!!!
  */
 export async function get_single(
   todoRepoDTO: Repository.Todo.DTO,
