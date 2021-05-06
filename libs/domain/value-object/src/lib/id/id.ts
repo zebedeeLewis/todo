@@ -1,5 +1,6 @@
 import * as Result from 'neverthrow'
 import * as uuid from 'uuid'
+import * as _ from 'underscore'
 
 export const ERR_TYPE = 'id must be a uuid string.'
 export const ERR_VERSION = 'id must be a uuid version 4 string.'
@@ -51,18 +52,32 @@ export function validate_DTO(dto: string): Result.Result<DTO, string> {
 }
 
 /**
- * Creates a new IdValueObject
+ * Produce the DTO used to create the given Model.
+ *
+ * @param id - the Id model we want to convert.
+ * @returns a new DTO
+ *
+ * @remarks
+ * TODO!!!
+ */
+export function to_dto(model: Model): DTO {
+  return model.value
+}
+
+/**
+ * Creates a new Id value object Model
  *
  * @param dto - the dto encapsulating the initialization data for the
  * new id value object.
  *
- * @returns
+ * @returns a new Id value object Model wrapping one of:
+ *   a. a newly generated id value if none is provided
+ *   b. the given id if one is provided
  *
  * @remarks
  *   1. We assume that the given dto has been validated using the
  *      "validate_DTO" function above.
- * TODO!!!
  */
-export function create(dto: DTO): Model {
-  return new Model(dto)
+export function create(dto?: DTO): Model {
+  return new Model(_.isUndefined(dto) ? uuid.v4() : dto)
 }

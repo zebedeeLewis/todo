@@ -17,13 +17,16 @@ const INVALID_ID_V3 = '641eb357-8761-3f64-b791-b2d4398e8532'
 const INVALID_ID_V5 = 'f81789d2-8ecc-5d84-b2e8-986e69b7f5d4'
 
 const repoDTO = {}
-const todoDTO = <Repository.Todo.Model>{}
+const todoDTO: Entity.Todo.DTO = {
+  id: VALID_ID_1,
+  title: 'test title',
+}
 
 jest.mock('@libs/infrastructure/repository', () => {
   return {
     Todo: {
       find: jest.fn(async (id) => {
-        return Result.ok({ id })
+        return Result.ok({ ...todoDTO, id })
       }),
       create: jest.fn(() => {
         return todoDTO
@@ -83,7 +86,10 @@ describe('get_single', () => {
     async () => {
       async function do_test(id: string) {
         const req = { params: { id } as any } as express.Request
-        const todoDTO = { id }
+        const todoDTO: Entity.Todo.DTO = {
+          id,
+          title: 'test title',
+        }
 
         await TodoController.get_single(
           repoDTO,
