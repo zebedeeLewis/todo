@@ -55,10 +55,8 @@ export function validate_DTO(dto: string): Result.Result<DTO, string> {
  * Produce the DTO used to create the given Model.
  *
  * @param id - the Id model we want to convert.
- * @returns a new DTO
  *
- * @remarks
- * TODO!!!
+ * @returns the DTO that corresponds to the given model.
  */
 export function to_dto(model: Model): DTO {
   return model.value

@@ -25,4 +25,18 @@ describe('Details Value-Object', () => {
       expect(recieved).toEqual(expected)
     })
   })
+
+  describe('Model to DTO conversion', () => {
+    it('produces the DTO that corresponds to the given model.', () => {
+      // Arrange
+      const expected = 'random details'
+      const details = Details.create(expected)
+
+      // Act
+      const recieved = Details.to_dto(details)
+
+      // Assert
+      expect(recieved).toBe(expected)
+    })
+  })
 })

@@ -3,7 +3,7 @@ import * as ValueObject from '@libs/domain/value-object'
 import * as uuid from 'uuid'
 
 describe('Todo Entity', () => {
-  describe('Model Creation', () => {
+  describe('Model creation', () => {
     it(
       'generates a new unique id if none is provided by the ' +
         'caller.',
@@ -118,6 +118,46 @@ describe('Todo Entity', () => {
 
         // Assert
         expect(recieved).toBe(expected)
+      }
+    )
+  })
+
+  describe('Model to DTO conversion', () => {
+    it('produces the DTO for the given model.', () => {
+      // Arrange
+      const creationTime = Date.UTC(2021, 4, 7) // May 7, 2021
+      const completionTime = Date.UTC(2021, 5, 7) // June 7, 2021
+      const dto = {
+        id: '109156be-c4fb-41ea-b1b4-efe1671c5836',
+        title: 'random title',
+        details: 'random details',
+        creationTime,
+        completionTime,
+      }
+      const todoEntity = TodoEntity.create(dto)
+      const expected = dto
+
+      // Act
+      const recieved = TodoEntity.to_dto(todoEntity)
+
+      // Assert
+      expect(recieved).toMatchObject(expected)
+    })
+
+    it(
+      'sets the "completionTime" property of the new DTO to ' +
+        'undefined if the corresponding Model completionTime is ' +
+        'null.',
+      () => {
+        // Arrange
+        const todoEntity = TodoEntity.create({})
+        const expected = { completionTime: undefined }
+
+        // Act
+        const recieved = TodoEntity.to_dto(todoEntity)
+
+        // Assert
+        expect(recieved).toMatchObject(expected)
       }
     )
   })

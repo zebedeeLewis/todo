@@ -6,6 +6,8 @@ import * as _ from 'underscore'
  * functions  outside of this module. This value represents the number
  * of milliseconds ellapsed since the Epoch. See the Date documentation
  * on MDN for details.
+ *
+ * TODO: change the date DTO to be a date string in ISO 1601 format.
  */
 export type DTO = number
 
@@ -38,10 +40,8 @@ export function validate_DTO(dto: DTO): Result.Result<DTO, string> {
  * Produce the DTO used to create this model.
  *
  * @param model - the model we want to convert.
- * @returns a new DTO
  *
- * @remarks
- * TODO!!!
+ * @returns the DTO corresponding to the given model.
  */
 export function to_dto(model: Model): DTO {
   return model.value.valueOf()

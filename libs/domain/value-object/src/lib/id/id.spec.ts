@@ -108,4 +108,18 @@ describe('Id Value Object', () => {
       }
     )
   })
+
+  describe('Model to DTO conversion', () => {
+    it('produces the DTO that corresponds to the given model.', () => {
+      // Arrange
+      const expected = 'dc965fe8-0868-44da-a0df-581010053655'
+      const id = Id.create(expected)
+
+      // Act
+      const recieved = Id.to_dto(id)
+
+      // Assert
+      expect(recieved).toBe(expected)
+    })
+  })
 })

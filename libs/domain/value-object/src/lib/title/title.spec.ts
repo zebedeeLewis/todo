@@ -33,4 +33,18 @@ describe('Title Value-Object', () => {
       }
     )
   })
+
+  describe('Model to DTO conversion', () => {
+    it('produces the DTO that corresponds to the given model.', () => {
+      // Arrange
+      const expected = 'random title'
+      const title = Title.create(expected)
+
+      // Act
+      const recieved = Title.to_dto(title)
+
+      // Assert
+      expect(recieved).toBe(expected)
+    })
+  })
 })

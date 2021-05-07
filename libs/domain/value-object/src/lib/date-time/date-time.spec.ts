@@ -27,4 +27,18 @@ describe('Date-Time Value-Object', () => {
       expect(recieved).toEqual(expected)
     })
   })
+
+  describe('Model to DTO conversion', () => {
+    it('produces the DTO that corresponds to the given model.', () => {
+      // Arrange
+      const expected = Date.UTC(2021, 4, 7) // May 7, 2021
+      const dateTime = DateTime.create(expected)
+
+      // Act
+      const recieved = DateTime.to_dto(dateTime)
+
+      // Assert
+      expect(recieved).toBe(expected)
+    })
+  })
 })

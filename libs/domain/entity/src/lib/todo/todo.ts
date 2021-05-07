@@ -60,14 +60,14 @@ export class Model {
 }
 
 /**
- * Create a todo entity DTO from the given todo entity.
+ * Create a DTO from the given Model.
  *
  * @param todoEntity - the todo entity to represent as a DTO
  *
- * @returns a new DTO
+ * @returns a new DTO that corresponds to the given model. If the
+ * "completionTime" is null, then that property is left undefined.
  *
  * @remarks
- * TODO!!!
  */
 export function to_dto(todoEntity: Model): DTO {
   return {
@@ -75,9 +75,9 @@ export function to_dto(todoEntity: Model): DTO {
     title: ValueObject.Title.to_dto(todoEntity.title),
     details: ValueObject.Details.to_dto(todoEntity.details),
     creationTime: ValueObject.DateTime.to_dto(todoEntity.creationTime),
-    completionTime: ValueObject.DateTime.to_dto(
-      todoEntity.completionTime
-    ),
+    completionTime: _.isNull(todoEntity.completionTime)
+      ? undefined
+      : ValueObject.DateTime.to_dto(todoEntity.completionTime),
   }
 }
 
