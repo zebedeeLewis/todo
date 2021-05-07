@@ -69,5 +69,5 @@ export async function find(
   id: ValueObject.Id.DTO,
   todoRepo: Model
 ): Promise<Result.Result<Entity.Todo.DTO, string>> {
-  return Result.ok({ id })
+  return Result.ok(Entity.Todo.to_dto(Entity.Todo.create({})))
 }
