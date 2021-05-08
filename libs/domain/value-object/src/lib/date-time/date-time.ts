@@ -2,14 +2,13 @@ import * as Result from 'neverthrow'
 import * as _ from 'underscore'
 
 /**
- * Describes the format used to describe a date/time object by
- * functions  outside of this module. This value represents the number
- * of milliseconds ellapsed since the Epoch. See the Date documentation
- * on MDN for details.
+ * Describes the format used to describe a date/time object by functions
+ * outside of this module. This value should be a date string in ISO 1801
+ * format.
  *
  * TODO: change the date DTO to be a date string in ISO 1601 format.
  */
-export type DTO = number
+export type DTO = string
 
 /**
  * Represents the date and time an event occured.
@@ -44,7 +43,7 @@ export function validate_DTO(dto: DTO): Result.Result<DTO, string> {
  * @returns the DTO corresponding to the given model.
  */
 export function to_dto(model: Model): DTO {
-  return model.value.valueOf()
+  return model.value.toISOString()
 }
 
 /**

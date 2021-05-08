@@ -93,11 +93,11 @@ describe('Todo Entity', () => {
         'caller.',
       () => {
         // Arrange
-        const expected = Date.UTC(90, 8, 14) // Sept 14, 1990
+        const expected = '2021-05-07T06:00:00.000Z'
 
         // Act
         const todoEntity = TodoEntity.create({ creationTime: expected })
-        const recieved = todoEntity.creationTime.value.valueOf()
+        const recieved = todoEntity.creationTime.value.toISOString()
 
         // Assert
         expect(recieved).toBe(expected)
@@ -125,8 +125,8 @@ describe('Todo Entity', () => {
   describe('Model to DTO conversion', () => {
     it('produces the DTO for the given model.', () => {
       // Arrange
-      const creationTime = Date.UTC(2021, 4, 7) // May 7, 2021
-      const completionTime = Date.UTC(2021, 5, 7) // June 7, 2021
+      const creationTime = '2021-05-07T06:00:00.000Z'
+      const completionTime = '2021-06-07T06:00:00.000Z'
       const dto = {
         id: '109156be-c4fb-41ea-b1b4-efe1671c5836',
         title: 'random title',
